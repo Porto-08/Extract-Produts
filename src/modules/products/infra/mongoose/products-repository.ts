@@ -14,8 +14,13 @@ export class ProductRepository implements IProductsRepository {
     return product;
   }
 
-  async find(): Promise<Product[]> {
-    const products = await db.collection<Product>('Product').find().toArray();
+  async find(skip: number, limit: number): Promise<Product[]> {
+    const products = await db
+      .collection<Product>('Product')
+      .find()
+      .skip(skip)
+      .limit(limit)
+      .toArray();
 
     return products;
   }
@@ -28,5 +33,11 @@ export class ProductRepository implements IProductsRepository {
     }
 
     return product as Product;
+  }
+
+  async count(): Promise<number> {
+    const count = await db.collection<Product>('Product').countDocuments();
+
+    return count;
   }
 }

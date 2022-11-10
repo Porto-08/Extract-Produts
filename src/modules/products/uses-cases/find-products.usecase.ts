@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { IProductsRepository } from '../domain/repositories/products-repository';
-import { Product } from '../entities/product';
 import { ProductRepository } from '../infra/mongoose/products-repository';
+import { IPaginateProduct } from '../interfaces';
 
 @Injectable()
 export class FindProductsUseCase {
@@ -10,9 +10,21 @@ export class FindProductsUseCase {
     private readonly productsRepository: IProductsRepository,
   ) {}
 
-  async execute(): Promise<Product[]> {
-    const products = await this.productsRepository.find();
+  async execute(page: number, limit: number): Promise<IPaginateProduct> {
+    const skip = (page - 1) * limit;
 
-    return products;
+    const products = await this.productsRepository.find(skip, limit);
+
+    const count = await this.productsRepository.count();
+
+    const pages = Math.ceil(count / limit);
+
+    return {
+      page,
+      limit,
+      pages,
+      total: count,
+      products,
+    };
   }
 }

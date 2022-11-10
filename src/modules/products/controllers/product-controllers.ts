@@ -1,10 +1,19 @@
 import { FindProductsUseCase } from '../uses-cases/find-products.usecase';
-import { Controller, Get, Put, Param, Body, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Put,
+  Param,
+  Body,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { Product } from '../entities/product';
 import { FindProductUseCase } from '../uses-cases/find-product.usecase';
 import { UpdateStatusProductUseCase } from '../uses-cases/updateStatus-product.usecase';
 import { FoodStatus } from 'src/modules/extract/interfaces';
 import { UpdateProductUseCase } from '../uses-cases/update-product.usecase';
+import { IPaginateProduct } from '../interfaces';
 
 @Controller('products')
 export class ProductController {
@@ -16,8 +25,11 @@ export class ProductController {
   ) {}
 
   @Get('')
-  async index(): Promise<Product[]> {
-    const products = await this.findProductsUseCase.execute();
+  async index(@Query() query: any): Promise<IPaginateProduct> {
+    const page = Number(query.page) || 1;
+    const limit = Number(query.limit) || 10;
+
+    const products = await this.findProductsUseCase.execute(page, limit);
 
     return products;
   }
