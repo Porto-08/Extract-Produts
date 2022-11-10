@@ -1,6 +1,5 @@
 # Introdução - Extract Products
 <p>Extração de dados do Open Food Facts por meio de arquivos para persistência dos dados em um banco de dados MongoDB.</p>
-<p>Este projeto foi realizado para conclusão do desafio "NodeJs Challenge 20201030"</p>
 
 # Instalação
 ```bash
@@ -26,3 +25,9 @@ $ yarn start
     Swagger
   </li>
 </ul>
+
+# Propósito
+<p>Este projeto foi realizado para conclusão do desafio "NodeJs Challenge 20201030"</p>
+
+## License
+[MIT licensed](LICENSE).
