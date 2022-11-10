@@ -15,7 +15,7 @@ export class UpdateProductUseCase {
     const findProduct = await this.productsRepository.findByCode(code);
 
     if (!product) {
-      throw new NotFoundException('Product not found');
+      throw new NotFoundException('Produto não encontrado');
     }
 
     const productUpdated = Object.assign(findProduct, product);

@@ -29,7 +29,7 @@ export class ProductRepository implements IProductsRepository {
     const product = await db.collection<Product>('Product').findOne({ code });
 
     if (!product) {
-      throw new NotFoundException('Product not found');
+      throw new NotFoundException('Produto não encontrado');
     }
 
     return product as Product;

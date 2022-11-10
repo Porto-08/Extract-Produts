@@ -22,12 +22,17 @@ export class ExtractProductsUseCase {
       unlinkSync(`./${file}`);
     }
 
-    await db.collection('Product').insertMany(data);
-    await db.collection('ExtractionHistory').insertOne({
-      lastExtraction: new Date(),
-      quantityProductsExtracted: data.length,
-    });
+    const productsPromise = db.collection('Product').insertMany(data);
+
+    const extractionHistoryPromise = await db
+      .collection('ExtractionHistory')
+      .insertOne({
+        lastExtraction: new Date(),
+        quantityProductsExtracted: data.length,
+      });
 
     console.log('Products extracted and saved');
+
+    return Promise.all([productsPromise, extractionHistoryPromise]);
   }
 }

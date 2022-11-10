@@ -16,7 +16,7 @@ export class UpdateStatusProductUseCase {
     const product = await this.productsRepository.findByCode(code);
 
     if (!product) {
-      throw new NotFoundException('Product not found');
+      throw new NotFoundException('Produto não encontrado');
     }
 
     if (product.status === FoodStatus.TRASH) {
