@@ -23,6 +23,10 @@ export class ExtractProductsUseCase {
     }
 
     await db.collection('Product').insertMany(data);
+    await db.collection('ExtractionHistory').insertOne({
+      lastExtraction: new Date(),
+      quantityProductsExtracted: data.length,
+    });
 
     console.log('Products extracted and saved');
   }

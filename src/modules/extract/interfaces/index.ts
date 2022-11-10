@@ -1,7 +1,7 @@
 export enum FoodStatus {
   DRAFT = 'draft',
   PUBLISHED = 'published',
-  TRASH = 'trash ',
+  TRASH = 'trash',
 }
 
 export interface Food {

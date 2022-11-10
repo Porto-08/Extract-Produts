@@ -2,6 +2,7 @@ import { IProductsRepository } from '../../domain/repositories/products-reposito
 import { Product } from '../../entities/product';
 import { Injectable } from '@nestjs/common';
 import db from 'src/config/database/mongoose';
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class ProductRepository implements IProductsRepository {
@@ -21,6 +22,10 @@ export class ProductRepository implements IProductsRepository {
 
   async findByCode(code: number): Promise<Product> {
     const product = await db.collection<Product>('Product').findOne({ code });
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
 
     return product as Product;
   }
