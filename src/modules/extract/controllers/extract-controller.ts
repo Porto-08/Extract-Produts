@@ -8,7 +8,7 @@ export class ExtractController {
   ) {}
 
   @Get('products')
-  async extractProducts(@Query('filename') filename: string) {
-    return this.extractProductsUseCase.execute(filename);
+  async extractProducts() {
+    return this.extractProductsUseCase.execute();
   }
 }
