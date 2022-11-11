@@ -11,20 +11,18 @@ $ yarn
 $ yarn start
 ```
 
-# Framework
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Bibliotecas e Linguagens
+- NodeJs
+- Mongoose
+- Swagger
+- MongoDB
+- Typescript
+- Jest
+- NestJs
+- Node-Cron
 
-# Principais Bibliotecas
-<ul>
-  <li>
-    Mongoose
-  </li>
-  <li>
-    Swagger
-  </li>
-</ul>
+# Documentação
+A documentação da api fica no endpoint http://localhost:3000/documentation#/
 
 # Propósito
 <p>Este projeto foi realizado para conclusão do desafio "NodeJs Challenge 20201030"</p>
