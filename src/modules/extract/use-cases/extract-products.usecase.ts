@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import extractProduts from '../utils/extractProduts';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { filesname } from '../utils/filesname';
-import db from 'src/config/database/mongoose';
+import db from '../../../shared/config/database/mongoose';
 import { unlinkSync } from 'fs';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class ExtractProductsUseCase {
     for (const file of filesname) {
       const products: any = await extractProduts(
         `${process.env.EXTRACT_URL}/${file}`,
-        `./${file}`,
+        `./${file}`
       );
 
       data.push(...products);

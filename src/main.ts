@@ -11,7 +11,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Extract Products API')
     .setDescription(
-      'Extrair produtos de um arquivo e salvar em um banco de dados',
+      'Extrair produtos de um arquivo e salvar em um banco de dados'
     )
     .setVersion('1.0')
     .addTag('Extract Products')
@@ -25,7 +25,7 @@ async function bootstrap() {
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
-    }),
+    })
   );
   await app.listen(3000);
 }

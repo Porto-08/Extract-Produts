@@ -1,8 +1,28 @@
-import { FoodStatus } from 'src/modules/extract/interfaces';
-import { describe, expect, it } from 'vitest';
+import 'dotenv/config';
+import * as request from 'supertest';
+import { INestApplication } from '@nestjs/common';
+import { Test } from '@nestjs/testing';
+import { ProductModule } from '../../product.module';
+import { FoodStatus } from '../../../extract/interfaces';
 import { ProductRepositoryInMemory } from '../../infra/in-memory/products-repository';
+import { UpdateStatusProductUseCase } from '../updateStatus-product.usecase';
 
 describe('Update Status Product', () => {
+  let app: INestApplication;
+  let updateStatusProductUseCase: UpdateStatusProductUseCase;
+  jest.setTimeout(10000);
+
+  beforeAll(async () => {
+    const moduleRef = await Test.createTestingModule({
+      imports: [ProductModule],
+    })
+      .overrideProvider(UpdateStatusProductUseCase)
+      .useValue(updateStatusProductUseCase)
+      .compile();
+
+    app = moduleRef.createNestApplication();
+    await app.init();
+  });
   it('should update status of a product', async () => {
     const productRepository = new ProductRepositoryInMemory();
 
@@ -22,6 +42,10 @@ describe('Update Status Product', () => {
 
     expect(async () => {
       await productRepository.findByCode(73490180287);
-    }).rejects.toThrowError('Product not found');
+    }).rejects.toThrowError('Produto não encontrado');
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });

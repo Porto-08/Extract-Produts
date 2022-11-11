@@ -1,27 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import db from './config/database/mongoose';
+import { IHealthCheck } from './interface';
+import db from './shared/config/database/mongoose';
 
 @Injectable()
 export class AppService {
-  healthCheck(): any {
-    const extractionHistory = db.collection('ExtractionHistory').findOne();
+  async healthCheck(): Promise<IHealthCheck> {
+    const extractionHistory = await db
+      .collection('ExtractionHistory')
+      .findOne();
+
+    const memory = process.memoryUsage().heapUsed / 1024 / 1024;
     const uptime = process.uptime();
-    const used = process.memoryUsage().heapUsed / 1024 / 1024;
-    let databaseStatus = 'OK';
+    const cpu = process.cpuUsage().user / 1000;
+    let database = true;
 
     db.on('error', () => {
-      databaseStatus = 'ERROR';
+      database = false;
     });
 
     db.once('open', () => {
-      databaseStatus = 'OK';
+      database = true;
     });
 
     return {
-      memoryUsed: `${Math.round((used / 1024 / 1024) * 100) / 100} MB`,
-      extractionHistory,
-      uptime: `${Math.round(uptime)} seconds`,
-      databaseStatus: databaseStatus,
+      memory,
+      uptime,
+      database,
+      cpu,
+      extractionHistory: extractionHistory,
     };
   }
 }

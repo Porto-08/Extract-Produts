@@ -16,6 +16,7 @@ import { FoodStatus } from 'src/modules/extract/interfaces';
 import { UpdateProductUseCase } from '../uses-cases/update-product.usecase';
 import { IPaginateProduct } from '../interfaces';
 import { QueryProductDto } from '../dto/query-products.dto';
+import { UpdateProductDto } from '../dto/update-product.dto';
 
 @ApiTags('Products')
 @Controller('products')
@@ -24,14 +25,14 @@ export class ProductController {
     private readonly findProductsUseCase: FindProductsUseCase,
     private readonly findProductUseCase: FindProductUseCase,
     private readonly updateStatusProductUseCase: UpdateStatusProductUseCase,
-    private readonly updateProductUseCase: UpdateProductUseCase,
+    private readonly updateProductUseCase: UpdateProductUseCase
   ) {}
 
   @Get('')
   @ApiOperation({ summary: 'Lista todos os produtos' })
   @ApiResponse({ status: 200, description: 'Lista todos os produtos' })
   async index(
-    @Query() queryProductDto: QueryProductDto,
+    @Query() queryProductDto: QueryProductDto
   ): Promise<IPaginateProduct> {
     const page = Number(queryProductDto.page) || 1;
     const limit = Number(queryProductDto.limit) || 10;
@@ -57,7 +58,7 @@ export class ProductController {
   @ApiResponse({ status: 404, description: 'Produto não encontrado' })
   async trashProduct(@Param('code') code: string): Promise<Product> {
     const productUpdated = await this.updateStatusProductUseCase.execute(
-      Number(code),
+      Number(code)
     );
 
     return productUpdated;
@@ -69,11 +70,11 @@ export class ProductController {
   @ApiResponse({ status: 404, description: 'Produto não encontrado' })
   async updateProduct(
     @Param('code') code: string,
-    @Body() product: Product,
+    @Body() product: UpdateProductDto
   ): Promise<Product> {
     const productUpdated = await this.updateProductUseCase.execute(
       product,
-      Number(code),
+      Number(code)
     );
 
     return productUpdated;

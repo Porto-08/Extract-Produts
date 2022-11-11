@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import db from 'src/config/database/mongoose';
+import db from '../config/database/mongoose';
 
 const ProductSchema = new mongoose.Schema({
   code: Number,

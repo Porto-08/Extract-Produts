@@ -8,13 +8,13 @@ import { BadRequestException, NotFoundException } from '@nestjs/common';
 export class UpdateProductUseCase {
   constructor(
     @Inject(ProductRepository)
-    private readonly productsRepository: IProductsRepository,
+    private readonly productsRepository: IProductsRepository
   ) {}
 
   async execute(product: Product, code: number): Promise<Product> {
     const findProduct = await this.productsRepository.findByCode(code);
 
-    if (!product) {
+    if (!findProduct) {
       throw new NotFoundException('Produto não encontrado');
     }
 

@@ -1,7 +1,7 @@
 import { IProductsRepository } from '../domain/repositories/products-repository';
 import { Injectable, Inject } from '@nestjs/common';
 import { ProductRepository } from '../infra/mongoose/products-repository';
-import { FoodStatus } from 'src/modules/extract/interfaces';
+import { FoodStatus } from '../../extract/interfaces';
 import { Product } from '../entities/product';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 

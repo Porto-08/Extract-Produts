@@ -76,7 +76,7 @@ export class ProductRepositoryInMemory implements IProductsRepository {
     const product = this.products.find((p) => p.code === code);
 
     if (!product) {
-      throw new NotFoundException('Product not found');
+      throw new NotFoundException('Produto não encontrado');
     }
 
     return product;

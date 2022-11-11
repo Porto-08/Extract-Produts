@@ -1,17 +1,17 @@
 import { IProductsRepository } from '../../domain/repositories/products-repository';
 import { Product } from '../../entities/product';
 import { Injectable } from '@nestjs/common';
-import db from 'src/config/database/mongoose';
+import db from '../../../../shared/config/database/mongoose';
 import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class ProductRepository implements IProductsRepository {
   async update(product: Product): Promise<Product> {
-    await db
+    const productUpdated = await db
       .collection<Product>('Product')
-      .updateOne({ code: product.code }, { $set: product });
+      .findOneAndUpdate({ code: product.code }, { $set: product });
 
-    return product;
+    return productUpdated as unknown as Product;
   }
 
   async find(skip: number, limit: number): Promise<Product[]> {

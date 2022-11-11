@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import db from 'src/config/database/mongoose';
+import db from '../../../shared/config/database/mongoose';
 
 const ExtractionHistory = new mongoose.Schema({
   lastExtraction: Date,
