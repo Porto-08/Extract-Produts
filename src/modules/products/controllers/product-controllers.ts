@@ -12,7 +12,6 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Product } from '../entities/product';
 import { FindProductUseCase } from '../uses-cases/find-product.usecase';
 import { UpdateStatusProductUseCase } from '../uses-cases/updateStatus-product.usecase';
-import { FoodStatus } from 'src/modules/extract/interfaces';
 import { UpdateProductUseCase } from '../uses-cases/update-product.usecase';
 import { IPaginateProduct } from '../interfaces';
 import { QueryProductDto } from '../dto/query-products.dto';
