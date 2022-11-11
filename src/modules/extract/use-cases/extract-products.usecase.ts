@@ -7,7 +7,7 @@ import { unlinkSync } from 'fs';
 
 @Injectable()
 export class ExtractProductsUseCase {
-  @Cron(CronExpression.EVERY_5_MINUTES)
+  @Cron(process.env.CRON_SCHEDULE!)
   async execute(): Promise<any> {
     const data: any[] = [];
 
