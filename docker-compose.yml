@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  app:
+    image: samuelporto/app-open-food-challenge:1.0
+    container_name: app
+    ports:
+      - 3000:3000
+    environment:
+      - MONGO_URL=mongodb+srv://porto:udymFzGFrRvk9EbH@cluster0.k4du8db.mongodb.net/test?retryWrites=true&w=majority
+      - EXTRACT_URL="https://challenges.coode.sh/food/data/json"
